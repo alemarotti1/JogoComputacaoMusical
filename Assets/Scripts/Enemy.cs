@@ -6,17 +6,25 @@ public class Enemy : MonoBehaviour
 {
     [SerializeField] private TempoController controller;
     private bool attackable = false;
+
+    public float Hitpoints;
+    public float MaxHitpoints = 5;
+
+    public HealthbarBeheaviour Healthbar;
+
     // Start is called before the first frame update
     void Start()
     {
-        
+        Hitpoints = MaxHitpoints;
+        Healthbar.SetHealth(Hitpoints, MaxHitpoints);
+
     }
 
     // Update is called once per frame
     void Update(){
-        defendPattern();
+     //   defendPattern();
     }
-
+/*
     private void defendPattern(){
         if (controller.beat == 4){
             attackable = true;
@@ -32,14 +40,21 @@ public class Enemy : MonoBehaviour
             GetComponent<SpriteRenderer>().color = Color.red;
         }
     }
+*/
+ /*   private void OnCollisionEnter2D(Collision2D other) {
+        collision.collider.GetComponent();
+    }
 
-    
+    */
     //on collision with bullet
-    private void OnTriggerEnter2D(Collider2D collision)
+    
+
+    public void TakeHit(float damage)
     {
-        if(attackable){
+        Hitpoints -= damage;
+        Healthbar.SetHealth(Hitpoints, MaxHitpoints);
+        if(Hitpoints <= 0){
             Destroy(gameObject);
-            Destroy(collision.gameObject);
         }
     }
 }
