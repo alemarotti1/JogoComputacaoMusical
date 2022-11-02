@@ -27,10 +27,10 @@ public class CharacterController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        direction = Input.GetAxis("Horizontal"); // 
+        direction = Input.GetAxis("Horizontal");
         dir_vertical = Input.GetAxis("Vertical");
-        rb.velocity = new Vector2(direction * moveSpeed, dir_vertical * moveSpeed); // a velocidade dele no eixo y éa propria dele neste eixo   
-
+        
+        
         if (subscriber.status) shoot();
         //if player is pressing the shoot button
         if (Input.GetButtonDown("Fire1"))
