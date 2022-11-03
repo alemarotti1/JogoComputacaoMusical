@@ -11,6 +11,10 @@ public class CharacterController : MonoBehaviour
     private float direction; //saber a direcao que to apertando
     private float dir_vertical;
 
+    private int hp = 3;
+    [SerializeField] private GameObject[] hearts = new GameObject[3];
+
+
 
 
     [SerializeField] private TempoController controller;
@@ -47,6 +51,22 @@ public class CharacterController : MonoBehaviour
         
     }
 
+    //when taking damage
+    public void OnTriggerEnter2D(Collider2D other)
+    {
+        if (other.gameObject.CompareTag("EnemyAttack"))
+            takeDamage();
+    }
+
+    //when taking damage
+    public void takeDamage()
+    {
+        hp--;
+        if(hp==0)/*load scene 1*/ UnityEngine.SceneManagement.SceneManager.LoadScene(0);
+        hearts[hp].SetActive(false);
+
+        
+    }
 
 
 }

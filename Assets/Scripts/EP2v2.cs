@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class EP2v2 : MonoBehaviour
 {
@@ -9,8 +10,13 @@ public class EP2v2 : MonoBehaviour
     private int currentShot = 0;
     
     private float[] attackTimesEven = { 2.92f, 3.93f, 4.47f, 5.43f, 14.51f, 14.68f, 14.87f, 15.99f, 16.185f, 16.34f};
-    private float[] attackTimesOdd = { 3.28f, 3.47f, 3.66f, 4.1f, 4.26f, 4.8f, 5.0f, 5.17f, 5.97f, 15.28f, 15.42f, 15.78f};
+    private float[] attackTimesOdd = { /*3.28f,*/ 3.47f, 3.66f, /*4.1f,*/ 4.26f, /*4.8f,*/ 5.0f, 5.17f, /*5.97f,*/ 15.28f, 15.42f/*, 15.78f*/};
     [SerializeField] private bool even;
+
+    [SerializeField] private Slider hpBar;
+    private float maxHp = 5;
+    private float currentHp = 5;
+
 
     
     [SerializeField] private GameObject bulletPrefab;
@@ -24,6 +30,10 @@ public class EP2v2 : MonoBehaviour
     void Update(){
         defendPattern();
         attackPattern();
+
+        hpBar.transform.position = Camera.main.WorldToScreenPoint(transform.position + new Vector3(0, -0.5f, 0));
+        hpBar.value = currentHp/maxHp;
+        hpBar.transform.localScale = new Vector3(0.5f, 0.5f, 0.5f);
     }
 
     private void defendPattern(){
@@ -72,7 +82,7 @@ public class EP2v2 : MonoBehaviour
     private void shoot(){
         Debug.Log("shoot");
         GameObject bullet = Instantiate(bulletPrefab, transform.position, Quaternion.identity);
-        Vector2 direction = new Vector2(-1, 0);
+        Vector2 direction = new Vector2(-1.5f, 0);
         // float[] values = {15,  0, 15};
         // int index = Random.Range(0, values.Length);
         // direction = Quaternion.Euler(0, 0, values[index]) * direction; 
@@ -81,9 +91,11 @@ public class EP2v2 : MonoBehaviour
     //on collision with bullet
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if(attackable){
-            Destroy(gameObject);
-            Destroy(collision.gameObject);
+        if(attackable && collision.gameObject.CompareTag("CharacterAttack")){
+            currentHp--;
+            if(currentHp <= 0){
+                Destroy(gameObject);
+            }
         }
     }
 }

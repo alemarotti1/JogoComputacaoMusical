@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class EP2v1 : MonoBehaviour
 {
@@ -8,6 +9,10 @@ public class EP2v1 : MonoBehaviour
     private bool attackable = false;
     private int currentShot = 0;
     private int angle = 0;
+    
+    [SerializeField] private Slider hpBar;
+    private float maxHp = 5;
+    private float currentHp = 5;
 
 
     
@@ -28,10 +33,13 @@ public class EP2v1 : MonoBehaviour
     void Update(){
         defendPattern();
         attackPattern();
+
+        hpBar.transform.position = Camera.main.WorldToScreenPoint(transform.position + new Vector3(0, -1.5f, 0));
+        hpBar.value = currentHp/maxHp;
     }
 
     private void defendPattern(){
-        if (controller.beat == 4){
+        if (controller.beat % 2 == 0){
             attackable = true;
         }
         else attackable = false;
@@ -72,9 +80,11 @@ public class EP2v1 : MonoBehaviour
     //on collision with bullet
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if(attackable){
-            Destroy(gameObject);
-            Destroy(collision.gameObject);
+        if(attackable && collision.gameObject.CompareTag("CharacterAttack")){
+            currentHp--;
+            if(currentHp <= 0){
+                Destroy(gameObject);
+            }
         }
     }
 
