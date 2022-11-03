@@ -236,6 +236,7 @@ GameObject:
   - component: {fileID: 185747067}
   - component: {fileID: 185747069}
   - component: {fileID: 185747070}
+  - component: {fileID: 185747071}
   m_Layer: 0
   m_Name: Enemy
   m_TagString: Untagged
@@ -323,6 +324,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   controller: {fileID: 2124712487}
+  Hitpoints: 0
+  MaxHitpoints: 5
+  Healthbar: {fileID: 0}
 --- !u!61 &185747070
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -349,6 +353,26 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 0.2, y: 0.2}
   m_EdgeRadius: 0
+--- !u!95 &185747071
+Animator:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 185747066}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: fb5a711f92e0f904a8e13682952754a8, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!1 &501591900
 GameObject:
   m_ObjectHideFlags: 0
@@ -468,8 +492,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fc5a7eac5e251e94b8f5c4c9c97b31ed, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  rb: {fileID: 0}
+  hearts:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
   controller: {fileID: 2124712487}
-  bulletPrefab: {fileID: 7919940747438326004, guid: e4995e28baa553f4dac3bbfcef64273e, type: 3}
+  ProjectPrefab: {fileID: 0}
+  LaunchOffset: {fileID: 0}
 --- !u!50 &501591905
 Rigidbody2D:
   serializedVersion: 4
@@ -752,6 +782,7 @@ MonoBehaviour:
   tempo: 108
   beat: 1
   beatPerBar: 8
+  audioSource: {fileID: 0}
   audioClip: {fileID: 8300000, guid: 8e303b5e515acfa479421761347e63c7, type: 3}
   beatTime: 0
   beatMaxTime: 0
